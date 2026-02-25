@@ -1,3 +1,55 @@
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+
 export default function Auth(){
-    return <div>Auth page</div>
+    const [mode, setMode] = useState("signup")
+    const {register, handleSubmit, formState: {errors}} = useForm()
+
+    function onSubmit(){
+        alert("user has signed up")
+    }
+
+    return (
+        <div className="page">
+            <div className="container">
+                <div className="auth-container">
+                    <h1 className="page-title" data-mode={mode}>
+                        {mode === "signup" ? "Sign Up" : "Login"}
+                    </h1>
+                    <form action="" onSubmit={handleSubmit()} className="auth-form">
+                        <div className="form-group">
+                            <label htmlFor="email" className="form-label">Email</label>
+                            <input type="email" id="email" {...register("email", {required: "Email is required"})} className="form-input" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input type="password" id="password" {...register("password", {required: "Password is required", minLength: {value: 8, message: "Password must be at least 8 characters long"}})} className="form-input" />
+                        </div>
+
+                        <button type="submit" data-mode={mode} className="btn btn-primary btn-large">
+                            {mode === "signup" ? "Sign Up" : "Login"}
+                        </button>
+                    </form>
+
+                    <div className="auth-switch">
+                        {mode === 'signup' ? (
+                            <p>
+                                Already have an account? 
+                                <span className="auth-link" onClick={() => setMode("login")}>
+                                    Login
+                                </span>
+                            </p>
+                        ) : (
+                            <p>
+                                Don't have an account? 
+                                <span className="auth-link" onClick={() => setMode("signup")}>
+                                    Sign Up
+                                </span>
+                            </p>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }
