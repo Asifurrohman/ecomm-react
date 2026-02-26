@@ -5,10 +5,6 @@ export default function Auth(){
     const [mode, setMode] = useState("signup")
     const {register, handleSubmit, formState: {errors}} = useForm()
 
-    function onSubmit(){
-        alert("user has signed up")
-    }
-
     return (
         <div className="page">
             <div className="container">
@@ -20,10 +16,12 @@ export default function Auth(){
                         <div className="form-group">
                             <label htmlFor="email" className="form-label">Email</label>
                             <input type="email" id="email" {...register("email", {required: "Email is required"})} className="form-input" />
+                            {errors.email && <span className="form-error">{errors.email.message}</span>}
                         </div>
                         <div className="form-group">
                             <label htmlFor="password" className="form-label">Password</label>
                             <input type="password" id="password" {...register("password", {required: "Password is required", minLength: {value: 8, message: "Password must be at least 8 characters long"}})} className="form-input" />
+                            {errors.password && <span className="form-error">{errors.password.message}</span>}
                         </div>
 
                         <button type="submit" data-mode={mode} className="btn btn-primary btn-large">
