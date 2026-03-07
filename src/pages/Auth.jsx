@@ -1,18 +1,41 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
+import { AuthContext } from "../context/AuthContext"
 
 export default function Auth(){
     const [mode, setMode] = useState("signup")
+    const [error, setError] = useState(null)
+
+    const { signup, user, login, logout } = useContext(AuthContext)
     const {register, handleSubmit, formState: {errors}} = useForm()
+
+    function onSubmit(data){
+        let result;
+
+        if(mode === "signup"){
+            result = signup(data.email, data.password)
+        } else {
+            result = login(data.email, data.password)
+        }
+
+        if(result.success) {
+            alert("horee")
+        } else {
+            setError(result.message)
+        }
+    }
 
     return (
         <div className="page">
             <div className="container">
                 <div className="auth-container">
+                    { user && <p>User logged in: {user.email}</p> }
+                    <button onClick={() => logout()}>Logout</button>
                     <h1 className="page-title" data-mode={mode}>
                         {mode === "signup" ? "Sign Up" : "Login"}
                     </h1>
-                    <form action="" onSubmit={handleSubmit()} className="auth-form">
+                    <form action="" onSubmit={handleSubmit(onSubmit)} className="auth-form">
+                        { error && <div className="error-message">{ error }</div>}
                         <div className="form-group">
                             <label htmlFor="email" className="form-label">Email</label>
                             <input type="email" id="email" {...register("email", {required: "Email is required"})} className="form-input" />
