@@ -7,20 +7,23 @@ import Checkout from './pages/Checkout'
 import Navbar from './components/Navbar'
 import AuthProvider from './context/AuthContext'
 import ProductDetails from './pages/ProductDetails'
+import CartProvider from './context/CartContext'
 
 function App() {
 
   return (
     <AuthProvider>
-      <div className='app'>
-        <Navbar></Navbar>
-        <Routes>
-          <Route path='/' element={<Home></Home>}></Route>
-          <Route path='/auth' element={<Auth></Auth>}></Route>
-          <Route path='/checkout' element={<Checkout></Checkout>}></Route>
-          <Route path='/products/:id' element={<ProductDetails></ProductDetails>}></Route>
-        </Routes>
-      </div>
+      <CartProvider>
+        <div className='app'>
+          <Navbar></Navbar>
+          <Routes>
+            <Route path='/' element={<Home></Home>}></Route>
+            <Route path='/auth' element={<Auth></Auth>}></Route>
+            <Route path='/checkout' element={<Checkout></Checkout>}></Route>
+            <Route path='/products/:id' element={<ProductDetails></ProductDetails>}></Route>
+          </Routes>
+        </div>
+      </CartProvider>
     </AuthProvider>
   )
 }
