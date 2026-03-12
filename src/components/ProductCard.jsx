@@ -12,7 +12,7 @@ export default function ProductCard({ product }) {
                     ${product.price}
                 </p>
                 <div className="product-card-actions">
-                    <Link to={`/product/${product.id}`} className="btn btn-secondary">
+                    <Link to={`/products/${product.id}`} className="btn btn-secondary">
                         View Details
                     </Link>
                     <button className="btn btn-primary">Add to Cart</button>
