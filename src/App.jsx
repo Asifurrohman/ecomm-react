@@ -5,9 +5,9 @@ import Home from './pages/Home'
 import Auth from './pages/Auth'
 import Checkout from './pages/Checkout'
 import Navbar from './components/Navbar'
-import AuthProvider from './context/AuthContext'
+import AuthProvider from './context/AuthProvider'
 import ProductDetails from './pages/ProductDetails'
-import CartProvider from './context/CartContext'
+import CartProvider from './context/CartProvider'
 
 function App() {
 
